@@ -69,7 +69,9 @@ class Qsr(QWidget, Ui_Form):
 
         # 控制开关
         self.Button_start.clicked.connect(self.on_Button_start)
+        self.Button_start.setProperty("stop_text", "已启动")
         self.Button_stop.clicked.connect(self.on_Button_stop)
+
 
         # 界面开关
         self.Button_close.clicked.connect(self.on_Button_close)
@@ -134,7 +136,7 @@ class Qsr(QWidget, Ui_Form):
         """帮助窗口"""
         self.text_edit_documentation.setFixedSize(400, 300)
         self.text_edit_documentation.setWindowTitle("喵唔按键文档")
-        self.text_edit_documentation.setPlainText('本软件只有前台模式\n[注意]需要优先点击 [启动\\f11] 激活才能正常使用,点击 [停止\\f12] 停止,\n\n连发模式:指按下快捷键激活按键不断点击打钩的键位,松开快捷键暂停\n\n循环模式:指点击快捷键无限点击打钩的键位,再点击一次快键键暂停\n\n延时:指每次点击键位的间隔时间,单位是毫秒(1秒=1000毫秒)\n\n切换连发/循环模式需要重新按 [启动\\f11]激活\n\n\n                    <说明>\n本软件使用DD按键驱动,启动时DD驱动会联网验证一下(我没法关)\n本软件仅供学习使用,另作他用产生的后果与本人无关\n有可能被杀毒软件误报可以添加信任或者关闭(我没遇到)\n\n本按键完全免费不要被骗了哦')
+        self.text_edit_documentation.setPlainText('本软件只有前台模式\n[注意]需要优先点击 [启动\\f11] 激活才能正常使用,点击 [停止\\f12] 停止,\n\n连发模式:指按下快捷键激活按键不断点击打钩的键位,松开快捷键暂停\n\n循环模式:指点击快捷键无限点击打钩的键位,再点击一次快键键暂停\n\n延时:指每次点击键位的间隔时间,单位是毫秒(1秒=1000毫秒)\n\n切换连发/循环模式需要重新按 [启动\\f11]激活\n\n\n                    <说明>\n本软件使用DD按键驱动,启动时DD驱动会联网验证一下(我没法关)\n本软件仅供学习使用,另作他用产生的后果与本人无关\n有可能被杀毒软件误报可以添加信任或者关闭(我没遇到)\n\n本按键完全免费不要被骗了哦\n\n\n项目地址:https://github.com/Gunziaa/catwu')
         self.text_edit_documentation.setReadOnly(True)
 
         self.text_edit_documentation.show()
@@ -324,6 +326,7 @@ class Qsr(QWidget, Ui_Form):
         self.time_out = True  # 暂停
 
         self.Button_start.setEnabled(True)
+        self.Button_start.setText('启动/11')
         print('停止脚本')
 
     def on_Button_start(self):
@@ -332,10 +335,19 @@ class Qsr(QWidget, Ui_Form):
         self.time_out = False  # 暂停
 
         self.coiled_thread_start()  # 开启连发模式
-
         self.Button_start.setEnabled(False)
+        # 启动后更新按钮文本
+        self.Button_start.setText(self.Button_start.property("stop_text"))
 
-        print('启动脚本')
+
+    def disable_button(self):
+        """更新启动按钮的文字"""
+        if self.Button_start.isEnabled():
+            print('禁用按钮')
+            self.Button_start.setText(self.Button_start.property("start_text"))
+        else:
+            self.Button_start.setText(self.Button_start.property("stop_text"))
+
 
     def start_circulate_key(self):
         """按键:循环模式"""

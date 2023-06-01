@@ -160,6 +160,14 @@ class Ui_Form(object):
         self.Button_start = QPushButton(self.frame_4)
         self.Button_start.setObjectName(u"Button_start")
         self.Button_start.setEnabled(True)
+        self.Button_start.setMinimumSize(QSize(0, 23))
+        self.Button_start.setStyleSheet(u"QPushButton:disabled {\n"
+"        background-color: #73a0bf; /* \u7981\u7528\u65f6\u7684\u80cc\u666f\u8272 */\n"
+"		border: none;\n"
+"		border-radius: 5px;\n"
+"		text:\u7981\u7528\n"
+"    }\n"
+"")
 
         self.verticalLayout_6.addWidget(self.Button_start)
 
