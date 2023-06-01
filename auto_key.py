@@ -11,11 +11,12 @@ class DDkey:
         :param k:  按住的键 只能一个
         :param d_k:  需要连击的键  ,可以是多键位 字符串格式 ,使用逗号隔
         """
-
-        self.dd = windll.LoadLibrary(r"E:\Py\catwu\DD94687.64.dll")
-        self.st = self.dd.DD_btn(0)  # 初始化
-
-        self.examine()
+        try:
+            self.dd = windll.LoadLibrary(r"E:\Py\catwu\DD94687.64.dll")
+            self.st = self.dd.DD_btn(0)  # 初始化
+            self.examine()
+        except OSError:
+            print('请使用管理员身份运行程序')
 
         # DD虚拟码，可以用DD内置函数转换。
         self.vk = {'5': 205, 'c': 503, 'n': 506, 'z': 501, '3': 203, '1': 201, 'd': 403, '0': 210, 'l': 409, '8': 208,
@@ -98,6 +99,7 @@ class DDkey:
             self.is_clicking = True
             self.key = key
             self.click_thread = threading.Thread(target=self.on_start_clicking)
+            # self.press_thread.daemon = True
             self.click_thread.start()
 
     def on_release(self, key):
@@ -112,7 +114,7 @@ class DDkey:
             e = random.randint(self.delay_mini, self.delay_max) / 1000
             time.sleep(e)
 
-    def stop_clicking(self) :
+    def stop_clicking(self):
         # print('连击停止')
         self.is_clicking = False
         if self.is_clicking:
@@ -122,4 +124,3 @@ class DDkey:
 if __name__ == '__main__':
     dd = DDkey('e', ['`'])
     dd.start()
-

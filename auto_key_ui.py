@@ -1,19 +1,22 @@
+import sys
+from ctypes import windll
+
 from PySide6.QtCore import Qt, QPoint
 from PySide6.QtGui import QPixmap
-from PySide6.QtWidgets import QApplication, QWidget, QCheckBox, QButtonGroup, QMessageBox, QTextEdit
+from PySide6.QtWidgets import QApplication, QCheckBox, QButtonGroup, QMessageBox, QTextEdit, QMainWindow
 from ui_qsrcroll import Ui_Form
 
 from pynput.keyboard import Listener
 
 import json
 import threading
+
 import auto_key
 
 
-class Qsr(QWidget, Ui_Form):
+class Qsr(QMainWindow, Ui_Form):
     def __init__(self):
         super().__init__()
-
         self.setupUi(self)
         # 钩子线程
         self.listener_thread = None
@@ -72,7 +75,6 @@ class Qsr(QWidget, Ui_Form):
         self.Button_start.setProperty("stop_text", "已启动")
         self.Button_stop.clicked.connect(self.on_Button_stop)
 
-
         # 界面开关
         self.Button_close.clicked.connect(self.on_Button_close)
         self.Button_minimize.clicked.connect(self.on_Button_minimize)
@@ -86,7 +88,7 @@ class Qsr(QWidget, Ui_Form):
         self.listener_thread_start()  # 初始化快捷件
 
         self.setWindowTitle('[喵唔按键]本软件完全免费')
-        self.icon = QPixmap('1.png')
+        self.icon = QPixmap('1.ico')
         self.setWindowIcon(self.icon)
 
         # 文档
@@ -127,16 +129,17 @@ class Qsr(QWidget, Ui_Form):
             self.__is_dragging = False
 
     def closeEvent(self, event):
-        self.dd.listener_stop()
-        self.on_Button_stop()
-
-        super().closeEvent(event)
+        # self.dd.listener_stop()
+        # self.on_Button_stop()
+        self.listener_stop()  # 停止快捷键钩子
+        sys.exit()
 
     def on_Button_help(self):
         """帮助窗口"""
         self.text_edit_documentation.setFixedSize(400, 300)
         self.text_edit_documentation.setWindowTitle("喵唔按键文档")
-        self.text_edit_documentation.setPlainText('本软件只有前台模式\n[注意]需要优先点击 [启动\\f11] 激活才能正常使用,点击 [停止\\f12] 停止,\n\n连发模式:指按下快捷键激活按键不断点击打钩的键位,松开快捷键暂停\n\n循环模式:指点击快捷键无限点击打钩的键位,再点击一次快键键暂停\n\n延时:指每次点击键位的间隔时间,单位是毫秒(1秒=1000毫秒)\n\n切换连发/循环模式需要重新按 [启动\\f11]激活\n\n\n                    <说明>\n本软件使用DD按键驱动,启动时DD驱动会联网验证一下(我没法关)\n本软件仅供学习使用,另作他用产生的后果与本人无关\n有可能被杀毒软件误报可以添加信任或者关闭(我没遇到)\n\n本按键完全免费不要被骗了哦\n\n\n项目地址:https://github.com/Gunziaa/catwu')
+        self.text_edit_documentation.setPlainText(
+            '本软件只有前台模式\n[注意]需要优先点击 [启动\\f11] 激活才能正常使用,点击 [停止\\f12] 停止,\n\n连发模式:指按下快捷键激活按键不断点击打钩的键位,松开快捷键暂停\n\n循环模式:指点击快捷键无限点击打钩的键位,再点击一次快键键暂停\n\n延时:指每次点击键位的间隔时间,单位是毫秒(1秒=1000毫秒)\n\n切换连发/循环模式需要重新按 [启动\\f11]激活\n\n\n                    <说明>\n本软件使用DD按键驱动,启动时DD驱动会联网验证一下(我没法关)\n本软件仅供学习使用,另作他用产生的后果与本人无关\n有可能被杀毒软件误报可以添加信任或者关闭(我没遇到)\n\n本按键完全免费不要被骗了哦\n\n\n项目地址:https://github.com/Gunziaa/catwu')
         self.text_edit_documentation.setReadOnly(True)
 
         self.text_edit_documentation.show()
@@ -316,7 +319,8 @@ class Qsr(QWidget, Ui_Form):
         if self.config['Set_key']['coiled_key']:  # 连发
             self.dd.listener_stop()
             self.dd.stop_clicking()
-        elif self.config['Set_key']['circulate_key']:  # 循环
+
+        if self.config['Set_key']['circulate_key']:  # 循环
             self.dd.dd_click_stop()
 
         if self.press_thread:
@@ -339,7 +343,6 @@ class Qsr(QWidget, Ui_Form):
         # 启动后更新按钮文本
         self.Button_start.setText(self.Button_start.property("stop_text"))
 
-
     def disable_button(self):
         """更新启动按钮的文字"""
         if self.Button_start.isEnabled():
@@ -347,7 +350,6 @@ class Qsr(QWidget, Ui_Form):
             self.Button_start.setText(self.Button_start.property("start_text"))
         else:
             self.Button_start.setText(self.Button_start.property("stop_text"))
-
 
     def start_circulate_key(self):
         """按键:循环模式"""
@@ -374,6 +376,7 @@ class Qsr(QWidget, Ui_Form):
     def listener_thread_start(self):
         """钩子线程"""
         self.listener_thread = threading.Thread(target=self.is_listener)
+        # self.press_thread.daemon = True
         self.listener_thread.start()
 
     def is_listener(self):
@@ -413,7 +416,6 @@ class Qsr(QWidget, Ui_Form):
                 self.on_Button_start()
 
             if key.name == self.config['Switch']['stop']:
-                print('停止脚本1')
                 self.on_Button_stop()
 
             if key.name == self.config['Set_key']['circulate_press_key']:
@@ -423,6 +425,8 @@ class Qsr(QWidget, Ui_Form):
                 else:
                     self.time_out = True
 
+                print('time_out:', self.time_out)
+
                 if self.time_out:
                     self.circulate_thread_start()  # 启动循环模式
                 else:
@@ -431,12 +435,14 @@ class Qsr(QWidget, Ui_Form):
     def coiled_thread_start(self):
         if self.config['Set_key']['coiled_key'] and self.is_switch:  # 连发
             self.press_thread = threading.Thread(target=self.start_coiled_key)
+            self.press_thread.daemon = True
             print("执行连发模式")
             self.press_thread.start()
 
     def circulate_thread_start(self):
         if self.config['Set_key']['circulate_key'] and self.is_switch:  # 循环
             self.press_thread = threading.Thread(target=self.start_circulate_key)
+            self.press_thread.daemon = True
             print('执行循环模式')
             self.press_thread.start()
 
@@ -445,8 +451,28 @@ class Qsr(QWidget, Ui_Form):
         self.listener.stop()
 
 
+def messagebox(text_1):
+    app = QApplication()
+    """创建一个提示窗口"""
+    msg_box = QMessageBox()
+    msg_box.setWindowTitle("提示")
+    msg_box.setText(text_1)
+    msg_box.setStandardButtons(QMessageBox.Ok)
+    msg_box.setDefaultButton(QMessageBox.Ok)
+    # 设置确定按钮的文本为中文
+    ok_button = msg_box.button(QMessageBox.Ok)
+    ok_button.setText("确定")
+    # 显示提示窗口
+    msg_box.show()
+    sys.exit(app.exec())
+
+
 if __name__ == '__main__':
-    app = QApplication([])
-    qs = Qsr()
-    qs.show()
-    app.exec()
+    if windll.shell32.IsUserAnAdmin():
+        app = QApplication()
+        qs = Qsr()
+        qs.show()
+        sys.exit(app.exec())
+    else:
+        messagebox('    请点击右键\n\n以管理员身份运行')
+        sys.exit()
