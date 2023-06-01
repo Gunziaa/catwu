@@ -30,7 +30,7 @@ class Qsr(QWidget, Ui_Form):
         # 拖动窗口
         self.__is_dragging = None
         # 配置文件
-        self.app_data_path = "E:\Py\PyTool\src\window\\autokey.json"
+        self.app_data_path = "E:\Py\catwu\\autokey.json"
         self.config = self.read_config()
 
         # 按键类

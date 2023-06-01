@@ -112,12 +112,14 @@ class DDkey:
             e = random.randint(self.delay_mini, self.delay_max) / 1000
             time.sleep(e)
 
-    def stop_clicking(self):
+    def stop_clicking(self) :
         # print('连击停止')
         self.is_clicking = False
-        self.click_thread.join()
+        if self.is_clicking:
+            self.click_thread.join()
 
 
 if __name__ == '__main__':
     dd = DDkey('e', ['`'])
     dd.start()
+
