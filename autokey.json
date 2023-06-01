@@ -1,0 +1,79 @@
+{
+	"PressKey": [
+		"`"
+	],
+	"Selected": [
+		"`"
+	],
+	"Set_key": {
+		"coiled_key": false,
+		"circulate_key": true,
+		"coiled_press_key": "e",
+		"circulate_press_key": "f10",
+		"__这是一个备注__": {
+			"coiled_key": "连发模式",
+			"coiled_press_key": "连发模式触发键位",
+			"circulate_key": "循环模式",
+			"circulate_press_key": "循环模式触发键位"
+		}
+	},
+	"Velocity": {
+		"Interval_time_mini": "45",
+		"Interval_time_max": "80",
+		"__这是一个备注__": "控制按键速度"
+	},
+	"Switch": {
+		"start": "f11",
+		"stop": "f12"
+	},
+	"Keys": [
+		"a",
+		"b",
+		"c",
+		"d",
+		"e",
+		"f",
+		"g",
+		"h",
+		"i",
+		"j",
+		"k",
+		"l",
+		"m",
+		"n",
+		"o",
+		"p",
+		"q",
+		"r",
+		"s",
+		"t",
+		"u",
+		"v",
+		"w",
+		"x",
+		"y",
+		"z",
+		"0",
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+		"f1",
+		"f2",
+		"f3",
+		"f4",
+		"f5",
+		"f6",
+		"f7",
+		"f8",
+		"f9",
+		"f10",
+		"-",
+		"."
+	]
+}
