@@ -10,6 +10,7 @@ from pynput.keyboard import Listener
 
 import json
 import threading
+from markdown import markdown
 
 import auto_key
 
@@ -134,10 +135,16 @@ class Qsr(QMainWindow, Ui_Form):
 
     def on_Button_help(self):
         """帮助窗口"""
-        self.text_edit_documentation.setFixedSize(400, 300)
+        with open("README.md", "r", encoding="utf-8") as file:
+            markdown_text = file.read()
+
+        # 将 Markdown 转换为 HTML
+        html_text = markdown(markdown_text)
+
+        self.text_edit_documentation.setFixedSize(600, 500)
         self.text_edit_documentation.setWindowTitle("喵唔按键文档")
-        self.text_edit_documentation.setPlainText(
-            '使用流程:选择模式-->[启动\\f11]-->按快捷键\n\n连发模式:指按下快捷键激活按键不断点击打钩的键位,松开快捷键暂停\n\n循环模式:指点击快捷键无限点击打钩的键位,再点击一次快键键暂停\n\n延时:指每次点击键位的间隔时间,单位是毫秒(1秒=1000毫秒)\n\n切换连发/循环模式需要重新按 [启动\\f11]激活\n\n\n                    <说明>\n本软件使用DD按键驱动,启动时DD驱动会联网验证一下(我没法关)\n本软件仅供学习使用,另作他用产生的后果与本人无关\n有可能被杀毒软件误报可以添加信任或者关闭(我没遇到)\n\n本按键完全免费不要被骗了哦\n\n\n项目地址:https://github.com/Gunziaa/catwu')
+        self.text_edit_documentation.setText(html_text)
+
         self.text_edit_documentation.setReadOnly(True)
 
         self.text_edit_documentation.show()
