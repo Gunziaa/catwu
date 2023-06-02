@@ -129,8 +129,6 @@ class Qsr(QMainWindow, Ui_Form):
             self.__is_dragging = False
 
     def closeEvent(self, event):
-        # self.dd.listener_stop()
-        # self.on_Button_stop()
         self.listener_stop()  # 停止快捷键钩子
         sys.exit()
 
@@ -139,7 +137,7 @@ class Qsr(QMainWindow, Ui_Form):
         self.text_edit_documentation.setFixedSize(400, 300)
         self.text_edit_documentation.setWindowTitle("喵唔按键文档")
         self.text_edit_documentation.setPlainText(
-            '本软件只有前台模式\n[注意]需要优先点击 [启动\\f11] 激活才能正常使用,点击 [停止\\f12] 停止,\n\n连发模式:指按下快捷键激活按键不断点击打钩的键位,松开快捷键暂停\n\n循环模式:指点击快捷键无限点击打钩的键位,再点击一次快键键暂停\n\n延时:指每次点击键位的间隔时间,单位是毫秒(1秒=1000毫秒)\n\n切换连发/循环模式需要重新按 [启动\\f11]激活\n\n\n                    <说明>\n本软件使用DD按键驱动,启动时DD驱动会联网验证一下(我没法关)\n本软件仅供学习使用,另作他用产生的后果与本人无关\n有可能被杀毒软件误报可以添加信任或者关闭(我没遇到)\n\n本按键完全免费不要被骗了哦\n\n\n项目地址:https://github.com/Gunziaa/catwu')
+            '使用流程:选择模式-->[启动\\f11]-->按快捷键\n\n连发模式:指按下快捷键激活按键不断点击打钩的键位,松开快捷键暂停\n\n循环模式:指点击快捷键无限点击打钩的键位,再点击一次快键键暂停\n\n延时:指每次点击键位的间隔时间,单位是毫秒(1秒=1000毫秒)\n\n切换连发/循环模式需要重新按 [启动\\f11]激活\n\n\n                    <说明>\n本软件使用DD按键驱动,启动时DD驱动会联网验证一下(我没法关)\n本软件仅供学习使用,另作他用产生的后果与本人无关\n有可能被杀毒软件误报可以添加信任或者关闭(我没遇到)\n\n本按键完全免费不要被骗了哦\n\n\n项目地址:https://github.com/Gunziaa/catwu')
         self.text_edit_documentation.setReadOnly(True)
 
         self.text_edit_documentation.show()
@@ -200,6 +198,7 @@ class Qsr(QMainWindow, Ui_Form):
             self.config['Set_key']['circulate_key'] = True
 
             self.dd.listener_stop()  # 关闭连发模式
+
             print("选择循环模式")
 
         elif self.radioButton_coiled.isChecked():
@@ -317,7 +316,6 @@ class Qsr(QMainWindow, Ui_Form):
     def on_Button_stop(self):
         """停止"""
         if self.config['Set_key']['coiled_key']:  # 连发
-            self.dd.listener_stop()
             self.dd.stop_clicking()
 
         if self.config['Set_key']['circulate_key']:  # 循环
