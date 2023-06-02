@@ -142,7 +142,7 @@ class Qsr(QMainWindow, Ui_Form):
         html_text = markdown(markdown_text)
 
         self.text_edit_documentation.setFixedSize(500, 500)
-        self.text_edit_documentation.setWindowTitle("喵唔按键文档")
+        self.text_edit_documentation.setWindowTitle("喵唔按键文档,本软件完全免费,QQ群:222059950")
         self.text_edit_documentation.setText(html_text)
 
         self.text_edit_documentation.setReadOnly(True)
@@ -175,9 +175,8 @@ class Qsr(QMainWindow, Ui_Form):
         """延时mini"""
         r = self.lineEdit_Interval_time_mini.text()
         for i in r:
-            if i in ' ':
-                return
-            elif i not in '1234567890':
+            if i not in '1234567890':
+                self.lineEdit_Interval_time_mini.clear()
                 self.prompts('输入数字')
                 return
 
@@ -188,9 +187,8 @@ class Qsr(QMainWindow, Ui_Form):
         """连发速度max"""
         r = self.lineEdit_Interval_time_max.text()
         for i in r:
-            if i in ' ':
-                return
-            elif i not in '1234567890':
+            if i not in '1234567890':
+                self.lineEdit_Interval_time_max.clear()
                 self.prompts('输入数字')
                 return
 
@@ -223,13 +221,11 @@ class Qsr(QMainWindow, Ui_Form):
     def on_lineEdit_circulate_key(self):
         """循环触发键"""
         r = self.lineEdit_circulate_key.text()
-        if r in ' ':
+        if r not in self.dd.vk:
+            self.lineEdit_circulate_key.clear()
+            self.prompts('非法字符')
             return
-        elif r not in self.dd.vk:
-            self.prompts('输入字母或数字')
-            return
-        elif r == 'e':
-            self.prompts('重复键位')
+
 
         self.config['Set_key']['circulate_press_key'] = r
         self.undate_config()
@@ -237,10 +233,9 @@ class Qsr(QMainWindow, Ui_Form):
     def on_lineEdit_coiled_key(self):
         """连发模式触发键"""
         r = self.lineEdit_coiled_key.text()
-        if r in ' ':
-            return
-        elif r not in self.config['Keys']:
-            self.prompts('输入字母或数字')
+        if r not in self.config['Keys']:
+            self.lineEdit_coiled_key.clear()
+            self.prompts('非法字符')
             return
 
         self.config['Set_key']['__这是一个备注__'] = {
@@ -256,6 +251,7 @@ class Qsr(QMainWindow, Ui_Form):
     def on_Button_add(self):
         """添加按键"""
         if self.res not in self.dd.vk:
+            self.lineEdit_add_input.clear()
             self.prompts('非法字符')
             return
 

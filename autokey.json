@@ -1,5 +1,6 @@
 {
 	"PressKey": [
+		"f5",
 		"`"
 	],
 	"Selected": [
@@ -9,7 +10,7 @@
 		"coiled_key": true,
 		"circulate_key": false,
 		"coiled_press_key": "e",
-		"circulate_press_key": "f10",
+		"circulate_press_key": "f9",
 		"__这是一个备注__": {
 			"coiled_key": "连发模式",
 			"coiled_press_key": "连发模式触发键位",
@@ -19,7 +20,7 @@
 	},
 	"Velocity": {
 		"Interval_time_mini": "45",
-		"Interval_time_max": "80",
+		"Interval_time_max": "100",
 		"__这是一个备注__": "控制按键速度"
 	},
 	"Switch": {

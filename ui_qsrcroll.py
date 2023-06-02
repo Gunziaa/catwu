@@ -23,10 +23,10 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(326, 226)
+        Form.resize(324, 224)
         self.widget = QWidget(Form)
         self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(0, 0, 325, 221))
+        self.widget.setGeometry(QRect(0, 0, 321, 221))
         self.widget.setStyleSheet(u"QPushButton:hover {\n"
 "		border-radius: 3px;\n"
 "        background-color: #99d6ff;  /* \u9f20\u6807\u60ac\u505c\u65f6\u7684\u80cc\u666f\u989c\u8272 */\n"
@@ -113,6 +113,7 @@ class Ui_Form(object):
         sizePolicy2.setHeightForWidth(self.radioButton_coiled.sizePolicy().hasHeightForWidth())
         self.radioButton_coiled.setSizePolicy(sizePolicy2)
         self.radioButton_coiled.setMaximumSize(QSize(80, 20))
+        self.radioButton_coiled.setFocusPolicy(Qt.NoFocus)
         self.layoutWidget1 = QWidget(self.frame_5)
         self.layoutWidget1.setObjectName(u"layoutWidget1")
         self.layoutWidget1.setGeometry(QRect(0, 70, 102, 51))
@@ -142,6 +143,7 @@ class Ui_Form(object):
         self.radioButton_circulate = QRadioButton(self.layoutWidget1)
         self.radioButton_circulate.setObjectName(u"radioButton_circulate")
         self.radioButton_circulate.setMaximumSize(QSize(80, 16777215))
+        self.radioButton_circulate.setFocusPolicy(Qt.NoFocus)
 
         self.verticalLayout_2.addWidget(self.radioButton_circulate)
 
@@ -164,7 +166,6 @@ class Ui_Form(object):
         self.Button_start.setObjectName(u"Button_start")
         self.Button_start.setEnabled(True)
         self.Button_start.setMinimumSize(QSize(0, 23))
-        self.Button_start.setFocusPolicy(Qt.NoFocus)
         self.Button_start.setStyleSheet(u"QPushButton:disabled {\n"
 "        background-color: #73a0bf; /* \u7981\u7528\u65f6\u7684\u80cc\u666f\u8272 */\n"
 "		border: none;\n"
@@ -258,7 +259,7 @@ class Ui_Form(object):
         self.line_2.setFrameShadow(QFrame.Sunken)
         self.Button_help = QPushButton(self.widget)
         self.Button_help.setObjectName(u"Button_help")
-        self.Button_help.setGeometry(QRect(228, 0, 45, 25))
+        self.Button_help.setGeometry(QRect(220, 0, 55, 25))
         self.Button_help.setFocusPolicy(Qt.NoFocus)
         self.layoutWidget4 = QWidget(self.widget)
         self.layoutWidget4.setObjectName(u"layoutWidget4")
@@ -324,7 +325,7 @@ class Ui_Form(object):
         self.lineEdit_add_input.setText("")
         self.lineEdit_add_input.setPlaceholderText(QCoreApplication.translate("Form", u"\u8f93\u5165\u5b57\u7b26\u4e32", None))
         self.Button_add.setText(QCoreApplication.translate("Form", u"\u6dfb\u52a0", None))
-        self.Button_help.setText(QCoreApplication.translate("Form", u"\u6587\u6863", None))
+        self.Button_help.setText(QCoreApplication.translate("Form", u"\u55b5\u5514\u6587\u6863", None))
         self.label_3.setText(QCoreApplication.translate("Form", u"\u5ef6\u65f6(\u6beb\u79d2)", None))
         self.label_4.setText(QCoreApplication.translate("Form", u"--", None))
         self.label_6.setText(QCoreApplication.translate("Form", u"1\u79d2 = 1000\u6beb\u79d2", None))
