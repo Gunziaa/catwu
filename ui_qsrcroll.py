@@ -53,6 +53,7 @@ class Ui_Form(object):
         self.Button_close = QPushButton(self.widget)
         self.Button_close.setObjectName(u"Button_close")
         self.Button_close.setGeometry(QRect(300, 0, 25, 25))
+        self.Button_close.setFocusPolicy(Qt.NoFocus)
         self.Button_close.setStyleSheet(u" QPushButton:hover {\n"
 "        background-color: #ff4639;  /* \u9f20\u6807\u60ac\u505c\u65f6\u7684\u80cc\u666f\u989c\u8272 */\n"
 "    }\n"
@@ -63,6 +64,7 @@ class Ui_Form(object):
         self.Button_minimize = QPushButton(self.widget)
         self.Button_minimize.setObjectName(u"Button_minimize")
         self.Button_minimize.setGeometry(QRect(275, 0, 25, 25))
+        self.Button_minimize.setFocusPolicy(Qt.NoFocus)
         self.frame_5 = QFrame(self.widget)
         self.frame_5.setObjectName(u"frame_5")
         self.frame_5.setGeometry(QRect(110, 0, 101, 221))
@@ -154,6 +156,7 @@ class Ui_Form(object):
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.Button_delete_key = QPushButton(self.frame_4)
         self.Button_delete_key.setObjectName(u"Button_delete_key")
+        self.Button_delete_key.setFocusPolicy(Qt.NoFocus)
 
         self.verticalLayout_6.addWidget(self.Button_delete_key)
 
@@ -161,6 +164,7 @@ class Ui_Form(object):
         self.Button_start.setObjectName(u"Button_start")
         self.Button_start.setEnabled(True)
         self.Button_start.setMinimumSize(QSize(0, 23))
+        self.Button_start.setFocusPolicy(Qt.NoFocus)
         self.Button_start.setStyleSheet(u"QPushButton:disabled {\n"
 "        background-color: #73a0bf; /* \u7981\u7528\u65f6\u7684\u80cc\u666f\u8272 */\n"
 "		border: none;\n"
@@ -173,6 +177,7 @@ class Ui_Form(object):
 
         self.Button_stop = QPushButton(self.frame_4)
         self.Button_stop.setObjectName(u"Button_stop")
+        self.Button_stop.setFocusPolicy(Qt.NoFocus)
 
         self.verticalLayout_6.addWidget(self.Button_stop)
 
@@ -223,6 +228,7 @@ class Ui_Form(object):
         self.Button_add = QPushButton(self.layoutWidget3)
         self.Button_add.setObjectName(u"Button_add")
         self.Button_add.setMinimumSize(QSize(50, 30))
+        self.Button_add.setFocusPolicy(Qt.NoFocus)
         self.Button_add.setStyleSheet(u"")
 
         self.horizontalLayout.addWidget(self.Button_add)
@@ -253,9 +259,10 @@ class Ui_Form(object):
         self.Button_help = QPushButton(self.widget)
         self.Button_help.setObjectName(u"Button_help")
         self.Button_help.setGeometry(QRect(228, 0, 45, 25))
+        self.Button_help.setFocusPolicy(Qt.NoFocus)
         self.layoutWidget4 = QWidget(self.widget)
         self.layoutWidget4.setObjectName(u"layoutWidget4")
-        self.layoutWidget4.setGeometry(QRect(220, 30, 101, 67))
+        self.layoutWidget4.setGeometry(QRect(220, 30, 122, 67))
         self.verticalLayout_3 = QVBoxLayout(self.layoutWidget4)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
