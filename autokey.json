@@ -7,8 +7,8 @@
 		"`"
 	],
 	"Set_key": {
-		"coiled_key": true,
-		"circulate_key": false,
+		"coiled_key": false,
+		"circulate_key": true,
 		"coiled_press_key": "e",
 		"circulate_press_key": "f9",
 		"__这是一个备注__": {
