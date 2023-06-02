@@ -134,14 +134,14 @@ class Qsr(QMainWindow, Ui_Form):
         sys.exit()
 
     def on_Button_help(self):
-        """帮助窗口"""
+        """文档窗口"""
         with open("README.md", "r", encoding="utf-8") as file:
             markdown_text = file.read()
 
         # 将 Markdown 转换为 HTML
         html_text = markdown(markdown_text)
 
-        self.text_edit_documentation.setFixedSize(600, 500)
+        self.text_edit_documentation.setFixedSize(500, 500)
         self.text_edit_documentation.setWindowTitle("喵唔按键文档")
         self.text_edit_documentation.setText(html_text)
 
@@ -323,6 +323,7 @@ class Qsr(QMainWindow, Ui_Form):
     def on_Button_stop(self):
         """停止"""
         if self.config['Set_key']['coiled_key']:  # 连发
+            self.dd.listener_stop()
             self.dd.stop_clicking()
 
         if self.config['Set_key']['circulate_key']:  # 循环
