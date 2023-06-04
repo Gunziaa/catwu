@@ -89,6 +89,7 @@ class DDkey:
         self.is_clicking = False
         if self.listener is not None:
             self.listener.stop()
+            print('连发钩子停')
 
     def on_press(self, key):
         """钩子回调函数"""
