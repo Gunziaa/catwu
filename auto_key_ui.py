@@ -335,15 +335,20 @@ class Qsr(QMainWindow, Ui_Form):
         self.Button_start.setText('启动/11')
         print('停止脚本')
 
+
     def on_Button_start(self):
         """开始按钮"""
-        self.is_switch = True
-        self.time_out = False  # 暂停
+        if self.Button_start.isEnabled():
+            self.is_switch = True
+            self.time_out = False  # 暂停
 
-        self.coiled_thread_start()  # 开启连发模式
-        self.Button_start.setEnabled(False)
-        # 启动后更新按钮文本
-        self.Button_start.setText(self.Button_start.property("stop_text"))
+            self.coiled_thread_start()  # 开启连发模式
+            self.Button_start.setEnabled(False)
+            # 启动后更新按钮文本
+            self.Button_start.setText(self.Button_start.property("stop_text"))
+
+
+
 
     def disable_button(self):
         """更新启动按钮的文字"""
@@ -419,6 +424,7 @@ class Qsr(QMainWindow, Ui_Form):
 
             if key.name == self.config['Switch']['stop']:
                 self.on_Button_stop()
+
 
             if key.name == self.config['Set_key']['circulate_press_key']:
 
