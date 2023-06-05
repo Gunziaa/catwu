@@ -29,8 +29,7 @@ class DDkey:
                    '-': 211,
                    '=': 212, 's': 402, ';': 410,
                    'f1': 101, 'f2': 102, 'f3': 103, 'f4': 104, 'f5': 105, 'f6': 106, 'f7': 107, 'f8': 108, 'f9': 109,
-                   'f10': 110,
-                   'f11': 111, 'f12': 112}
+                   'f10': 110}
 
         self.k = k  # 按住的键
         self.d_k = d_k  # 需要连击的键
@@ -65,31 +64,31 @@ class DDkey:
         """无脑循环模式"""
         while self.is_circulate:
             self.dd_key()
-            e = random.randint(self.delay_mini, self.delay_max) / 1000
+            e = random.randint(int(self.delay_mini), int(self.delay_max)) / 1000
             time.sleep(e)
+            print(e)
 
     def dd_click_start(self):
         """开始无脑循环"""
         self.is_circulate = True
-        self.dd_click()
+        self.click_thread = threading.Thread(target=self.dd_click)
+        self.click_thread.daemon = True
+        self.click_thread.start()
+
+
 
     def dd_click_stop(self):
         """停止无脑循环模式"""
         self.is_circulate = False
+        self.click_thread.join()
+
+
+
+
+
 
     # ---------------------------------------------------------------------
-    def start(self):
-        """键盘钩子 用于按键连发"""
-        with Listener(on_press=self.on_press, on_release=self.on_release) as listener:
-            self.listener = listener
-            listener.join()
 
-    def listener_stop(self):
-        """停止钩子"""
-        self.is_clicking = False
-        if self.listener is not None:
-            self.listener.stop()
-            print('连发钩子停')
 
     def on_press(self, key):
         """钩子回调函数"""
@@ -108,7 +107,9 @@ class DDkey:
         if self.is_clicking and key == self.key:
             self.stop_clicking()
 
+
     def on_start_clicking(self):
+        """子线程回调函数"""
         # print('连击开始')
         while self.is_clicking:
             self.dd_key()
@@ -121,6 +122,18 @@ class DDkey:
         if self.is_clicking:
             self.click_thread.join()
 
+    def start(self, key):
+        """键盘钩子 用于按键连发"""
+        with Listener(on_press=self.on_press, on_release=self.on_release) as listener:
+            self.listener = listener
+            listener.join()
+
+    def listener_stop(self):
+        """停止钩子"""
+        self.is_clicking = False
+        if self.listener is not None:
+            self.listener.stop()
+            print('连发钩子停')
 
 if __name__ == '__main__':
     dd = DDkey('e', ['`'])

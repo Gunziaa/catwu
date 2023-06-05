@@ -1,26 +1,28 @@
 {
 	"PressKey": [
-		"f5",
+		"a",
+		"b",
+		"c",
 		"`"
 	],
 	"Selected": [
 		"`"
 	],
 	"Set_key": {
-		"coiled_key": true,
-		"circulate_key": false,
-		"coiled_press_key": "e",
-		"circulate_press_key": "f10",
+		"coiled_mode": false,
+		"circulate_mode": true,
+		"coiled_key": "e",
+		"circulate_key": "f10",
 		"__这是一个备注__": {
-			"coiled_key": "连发模式",
-			"coiled_press_key": "连发模式触发键位",
-			"circulate_key": "循环模式",
-			"circulate_press_key": "循环模式触发键位"
+			"coiled_mode": "连发模式",
+			"coiled_key": "连发模式触发键位",
+			"circulate_mode": "循环模式",
+			"circulate_key": "循环模式触发键位"
 		}
 	},
 	"Velocity": {
-		"Interval_time_mini": "45",
-		"Interval_time_max": "100",
+		"Interval_time_mini": "50",
+		"Interval_time_max": "90",
 		"__这是一个备注__": "控制按键速度"
 	},
 	"Switch": {
