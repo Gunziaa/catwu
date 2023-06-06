@@ -8,8 +8,8 @@
 		"`"
 	],
 	"Set_key": {
-		"coiled_mode": true,
-		"circulate_mode": false,
+		"coiled_mode": false,
+		"circulate_mode": true,
 		"coiled_key": "e",
 		"circulate_key": "f10",
 		"__这是一个备注__": {
