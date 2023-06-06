@@ -346,6 +346,7 @@ class CatWu(QWidget, Ui_Form):
             if key.name == self.config['Set_key']['coiled_key'] and self.config['Set_key'][
                 'coiled_mode'] and self.is_switch:
                 self.key_stop()
+                self.is_coiled_mode = True
                 print('停止连发')
 
             elif key.name == self.config['Set_key']['circulate_key'] and self.config['Set_key'][
