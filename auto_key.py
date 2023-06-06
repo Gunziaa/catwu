@@ -1,6 +1,5 @@
 import threading
 from ctypes import windll
-from pynput.keyboard import Listener, KeyCode
 import time
 import random
 
@@ -75,66 +74,8 @@ class DDkey:
         self.click_thread.daemon = True
         self.click_thread.start()
 
-
-
     def dd_click_stop(self):
         """停止无脑循环模式"""
         self.is_circulate = False
         self.click_thread.join()
 
-
-
-
-
-
-    # ---------------------------------------------------------------------
-
-
-    def on_press(self, key):
-        """钩子回调函数"""
-        if key != KeyCode.from_char(self.k):
-            return
-
-        if not self.is_clicking:
-            self.is_clicking = True
-            self.key = key
-            self.click_thread = threading.Thread(target=self.on_start_clicking)
-            # self.press_thread.daemon = True
-            self.click_thread.start()
-
-    def on_release(self, key):
-        """钩子回调函数"""
-        if self.is_clicking and key == self.key:
-            self.stop_clicking()
-
-
-    def on_start_clicking(self):
-        """子线程回调函数"""
-        # print('连击开始')
-        while self.is_clicking:
-            self.dd_key()
-            e = random.randint(self.delay_mini, self.delay_max) / 1000
-            time.sleep(e)
-
-    def stop_clicking(self):
-        # print('连击停止')
-        self.is_clicking = False
-        if self.is_clicking:
-            self.click_thread.join()
-
-    def start(self, key):
-        """键盘钩子 用于按键连发"""
-        with Listener(on_press=self.on_press, on_release=self.on_release) as listener:
-            self.listener = listener
-            listener.join()
-
-    def listener_stop(self):
-        """停止钩子"""
-        self.is_clicking = False
-        if self.listener is not None:
-            self.listener.stop()
-            print('连发钩子停')
-
-if __name__ == '__main__':
-    dd = DDkey('e', ['`'])
-    dd.start()

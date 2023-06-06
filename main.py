@@ -1,9 +1,10 @@
 import json
 import sys
+from ctypes import windll
 
 from PySide6.QtCore import Qt, QPoint
 from PySide6.QtGui import QPixmap
-from PySide6.QtWidgets import QWidget, QApplication, QHBoxLayout, QListWidgetItem, QVBoxLayout, QTextEdit, QMessageBox
+from PySide6.QtWidgets import QWidget, QApplication, QTextEdit
 from markdown import markdown
 import threading
 
@@ -12,7 +13,7 @@ from pynput.keyboard import Listener
 from ui_catwu import Ui_Form
 
 import auto_key
-from qfluentwidgets import ListView, setTheme, Theme, ListWidget, ToggleButton
+from qfluentwidgets import ToggleButton
 
 
 class CatWu(QWidget, Ui_Form):
@@ -33,8 +34,7 @@ class CatWu(QWidget, Ui_Form):
         self.setupUi(self)
         self.setWindowFlags(Qt.FramelessWindowHint)
 
-        # self.circulate_mode = None  # 循环开关
-        # self.coiled_mode = None  # 连发开关
+        self.is_coiled_mode = True  # 连发开关 防止重复启动
 
         self.is_switch = False  # F11 总开关
         # 添加按钮 删除按钮
@@ -83,9 +83,8 @@ class CatWu(QWidget, Ui_Form):
         self.text_edit_documentation = QTextEdit()
         self.text_edit_documentation.setWindowIcon(self.icon)
 
-
-
         self.listener_thread_start()  # 启动钩子
+
 
     # _________________________________________________________________
     # 信号关联
@@ -107,6 +106,7 @@ class CatWu(QWidget, Ui_Form):
             self.Button_start.setText(self.Button_start.property("stop_text"))
 
             self.is_switch = True
+            self.c.undate_config(self.config)
             print('启动')
 
     def on_Button_help(self):
@@ -282,13 +282,15 @@ class CatWu(QWidget, Ui_Form):
 
     def on_press(self, key):
         try:
-            if key.char == self.config['Set_key']['coiled_key'] and self.config['Set_key']['coiled_mode'] and self.is_switch:
+            if key.char == self.config['Set_key']['coiled_key'] and self.config['Set_key']['coiled_mode'] and self.is_switch and self.is_coiled_mode:
+                self.is_coiled_mode = False
                 self.key_star()
                 print('开始连发')
             # print(f'按键 {key} 被按下')
         except AttributeError:
 
             if key.name == self.config['Set_key']['coiled_key'] and self.config['Set_key']['coiled_mode'] and self.is_switch:
+                self.is_coiled_mode = False
                 self.key_star()
                 print('开始连发')
             pass
@@ -297,6 +299,7 @@ class CatWu(QWidget, Ui_Form):
         # print(f'按键 {key} 被松开')
         try:
             if key.char == self.config['Set_key']['coiled_key'] and self.config['Set_key']['coiled_mode'] and self.is_switch:
+                self.is_coiled_mode = True
                 self.key_stop()
                 print('停止连发')
 
@@ -318,6 +321,7 @@ class CatWu(QWidget, Ui_Form):
 
             if key.name == self.config['Set_key']['coiled_key'] and self.config['Set_key'][
                 'coiled_mode'] and self.is_switch:
+                self.is_coiled_mode = True
                 self.key_stop()
                 print('停止连发')
 
@@ -373,7 +377,6 @@ class Config:
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-
     c = CatWu()
     c.show()
     sys.exit(app.exec())

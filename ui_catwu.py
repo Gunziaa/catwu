@@ -26,12 +26,16 @@ class Ui_Form(object):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.setEnabled(True)
-        Form.resize(349, 282)
+        Form.resize(350, 284)
+        Form.setWindowOpacity(0.900000000000000)
+        Form.setStyleSheet(u"background-color: rgba(231, 255, 251, 90)\n"
+"")
         self.widget = QWidget(Form)
         self.widget.setObjectName(u"widget")
         self.widget.setGeometry(QRect(2, 2, 348, 281))
         self.widget.setMinimumSize(QSize(0, 0))
         self.widget.setMaximumSize(QSize(500, 350))
+        self.widget.setStyleSheet(u"")
         self.frame = QFrame(self.widget)
         self.frame.setObjectName(u"frame")
         self.frame.setGeometry(QRect(0, 40, 150, 231))
@@ -48,7 +52,10 @@ class Ui_Form(object):
         font = QFont()
         font.setPointSize(10)
         self.scrollArea.setFont(font)
-        self.scrollArea.setStyleSheet(u"border-style:none")
+        self.scrollArea.setStyleSheet(u"border-style:none;\n"
+"background-color: rgba(197, 236, 233, 50);\n"
+"border-radius: 5px\n"
+"")
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
         self.scrollAreaWidgetContents = QWidget()
@@ -193,23 +200,39 @@ class Ui_Form(object):
         self.Button_start.setObjectName(u"Button_start")
         self.Button_start.setEnabled(True)
         self.Button_start.setGeometry(QRect(10, 155, 181, 41))
-        self.Button_start.setStyleSheet(u"QPushButton:disabled {\n"
+        self.Button_start.setStyleSheet(u"\n"
+"QPushButton:disabled {\n"
 "	border-radius: 3px;\n"
 "    background-color: #009faa;\n"
 "	border: none;\n"
 "	color:#ffffff;\n"
 "}\n"
 "\n"
+"QPushButton:hover {\n"
+"        background-color:rgba(255, 255, 255, 90);  \n"
+"    }\n"
+"\n"
 "")
         self.Button_close = PushButton(self.widget)
         self.Button_close.setObjectName(u"Button_close")
         self.Button_close.setGeometry(QRect(310, 2, 30, 30))
+        self.Button_close.setStyleSheet(u" QPushButton:hover {\n"
+"        background-color:rgb(255, 158, 129); \n"
+"		border-radius: 5px;\n"
+"    }")
         self.Button_minimize = PushButton(self.widget)
         self.Button_minimize.setObjectName(u"Button_minimize")
         self.Button_minimize.setGeometry(QRect(280, 2, 30, 30))
         self.Button_text = PushButton(self.widget)
         self.Button_text.setObjectName(u"Button_text")
         self.Button_text.setGeometry(QRect(195, 2, 85, 30))
+        self.label_6 = QLabel(Form)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setGeometry(QRect(0, 0, 348, 281))
+        self.label_6.setMinimumSize(QSize(348, 281))
+        self.label_6.setPixmap(QPixmap(u"12.jpg"))
+        self.label_6.raise_()
+        self.widget.raise_()
 
         self.retranslateUi(Form)
         self.radioButton_coiled_mode.toggled.connect(self.stackedWidget.show)
@@ -224,19 +247,44 @@ class Ui_Form(object):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.lineEdit_input.setPlaceholderText("")
         self.label.setText(QCoreApplication.translate("Form", u"\u5ef6\u65f6/\u6beb\u79d2\uff1a", None))
+#if QT_CONFIG(tooltip)
+        self.lineEdit_delay_mini.setToolTip("")
+#endif // QT_CONFIG(tooltip)
         self.label_2.setText(QCoreApplication.translate("Form", u" ~", None))
         self.label_4.setText(QCoreApplication.translate("Form", u"\u8fde\u53d1\u5feb\u6377\u952e:", None))
         self.lineEdit_circulate_key.setText("")
         self.label_5.setText(QCoreApplication.translate("Form", u"\u5faa\u73af\u5feb\u6377\u952e:", None))
+#if QT_CONFIG(tooltip)
+        self.Button_delete.setToolTip(QCoreApplication.translate("Form", u"\u5220\u9664\u6309\u94ae", None))
+#endif // QT_CONFIG(tooltip)
         self.Button_delete.setText(QCoreApplication.translate("Form", u"\u5220\u9664", None))
+#if QT_CONFIG(tooltip)
+        self.Button_add.setToolTip(QCoreApplication.translate("Form", u"\u6dfb\u52a0\u6309\u94ae", None))
+#endif // QT_CONFIG(tooltip)
         self.Button_add.setText(QCoreApplication.translate("Form", u"\u6dfb\u52a0", None))
+#if QT_CONFIG(tooltip)
+        self.Button_stop.setToolTip(QCoreApplication.translate("Form", u"\u505c\u6b62\u811a\u672c", None))
+#endif // QT_CONFIG(tooltip)
         self.Button_stop.setText(QCoreApplication.translate("Form", u"\u505c\u6b62/F12", None))
         self.label_3.setText(QCoreApplication.translate("Form", u"\u6a21\u5f0f\uff1a", None))
         self.radioButton_coiled_mode.setText(QCoreApplication.translate("Form", u"\u8fde\u53d1", None))
         self.radioButton_circulate_mode.setText(QCoreApplication.translate("Form", u"\u5faa\u73af", None))
+#if QT_CONFIG(tooltip)
+        self.Button_start.setToolTip(QCoreApplication.translate("Form", u"\u6fc0\u6d3b\u811a\u672c", None))
+#endif // QT_CONFIG(tooltip)
         self.Button_start.setText(QCoreApplication.translate("Form", u"\u542f\u52a8/F11", None))
+#if QT_CONFIG(tooltip)
+        self.Button_close.setToolTip(QCoreApplication.translate("Form", u"\u5173\u95ed", None))
+#endif // QT_CONFIG(tooltip)
         self.Button_close.setText(QCoreApplication.translate("Form", u"X", None))
-        self.Button_minimize.setText(QCoreApplication.translate("Form", u"--", None))
+#if QT_CONFIG(tooltip)
+        self.Button_minimize.setToolTip(QCoreApplication.translate("Form", u"\u6700\u5c0f\u5316", None))
+#endif // QT_CONFIG(tooltip)
+        self.Button_minimize.setText(QCoreApplication.translate("Form", u"-----", None))
+#if QT_CONFIG(tooltip)
+        self.Button_text.setToolTip(QCoreApplication.translate("Form", u"\u55b5\u5514\u8f6f\u4ef6\u6587\u6863/\u672c\u8f6f\u4ef6\u5b8c\u5168\u514d\u8d39/\u7fa4:222059950", None))
+#endif // QT_CONFIG(tooltip)
         self.Button_text.setText(QCoreApplication.translate("Form", u"\u55b5\u5514\u6587\u6863", None))
+        self.label_6.setText("")
     # retranslateUi
 
