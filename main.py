@@ -238,8 +238,8 @@ class CatWu(QWidget, Ui_Form):
             self.config["Set_key"]["coiled_mode"] = False
             self.config["Set_key"]["circulate_mode"] = True
 
-            print('连发', self.radioButton_coiled_mode.isChecked())
-            print('循环', self.radioButton_circulate_mode.isChecked())
+            # print('连发', self.radioButton_coiled_mode.isChecked())
+            # print('循环', self.radioButton_circulate_mode.isChecked())
 
     # _________________________________________________________________
     # 窗口事件
@@ -293,7 +293,7 @@ class CatWu(QWidget, Ui_Form):
                 self.is_coiled_mode = False
                 self.key_star()
                 print('开始连发')
-            pass
+
 
     def on_release(self, key):
         # print(f'按键 {key} 被松开')
