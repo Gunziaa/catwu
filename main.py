@@ -85,7 +85,6 @@ class CatWu(QWidget, Ui_Form):
 
         self.listener_thread_start()  # 启动钩子
 
-
     # _________________________________________________________________
     # 信号关联
 
@@ -106,7 +105,7 @@ class CatWu(QWidget, Ui_Form):
             self.Button_start.setText(self.Button_start.property("stop_text"))
 
             self.is_switch = True
-            self.c.undate_config(self.config)
+
             print('启动')
 
     def on_Button_help(self):
@@ -132,20 +131,35 @@ class CatWu(QWidget, Ui_Form):
     def on_coiled_key(self):
         # 连发快捷键
         coi = self.lineEdit_coiled_key.text()
+        if coi in self.config["PressKey"]:
+            self.lineEdit_coiled_key.clear()
+            self.lineEdit_coiled_key.setPlaceholderText('重复键')
+            return
+
         if coi in self.dd.vk:
             self.config['Set_key']["coiled_key"] = coi
         else:
             self.lineEdit_coiled_key.clear()
-            self.lineEdit_coiled_key.setPlaceholderText('输入小写字母')
+            self.lineEdit_coiled_key.setPlaceholderText('非法字符')
+
+        self.c.undate_config(self.config)  # 更新数据
 
     def on_circulate_key(self):
         # 循环快捷键
         cir = self.lineEdit_circulate_key.text()
+        if cir in self.config["PressKey"]:
+            self.lineEdit_circulate_key.clear()
+            self.lineEdit_circulate_key.setPlaceholderText('重复键')
+            return
+
         if cir in self.dd.vk:
             self.config['Set_key']['circulate_key'] = cir
         else:
             self.lineEdit_circulate_key.clear()
-            self.lineEdit_circulate_key.setPlaceholderText('数字或小写字母')
+            self.lineEdit_circulate_key.setPlaceholderText('非法字符')
+
+        self.c.undate_config(self.config)  # 更新数据
+
     def on_delay_mini(self):
         delay_mini = self.lineEdit_delay_mini.text()
         for i in delay_mini:
@@ -154,6 +168,8 @@ class CatWu(QWidget, Ui_Form):
             else:
                 self.lineEdit_delay_mini.clear()
 
+        self.c.undate_config(self.config)  # 更新数据
+
     def on_delay_max(self):
         delay_max = self.lineEdit_delay_max.text()
         for i in delay_max:
@@ -161,6 +177,7 @@ class CatWu(QWidget, Ui_Form):
                 self.config['Velocity']["Interval_time_max"] = delay_max
             else:
                 self.lineEdit_delay_max.clear()
+        self.c.undate_config(self.config)  # 更新数据
 
     def on_Button_delete(self):
         """删除键位"""
@@ -173,7 +190,6 @@ class CatWu(QWidget, Ui_Form):
         """添加按键"""
         if self.res is None:
             self.lineEdit_input.setPlaceholderText('不可以是空的')
-
         else:
             if self.res not in self.config["PressKey"]:
                 self.config["PressKey"].append(self.res)
@@ -183,11 +199,16 @@ class CatWu(QWidget, Ui_Form):
 
             self.key_list()  # 更新列表
         self.lineEdit_input.clear()
+        self.c.undate_config(self.config)  # 更新数据
 
     def on_lineEdit_add_input(self):
         """添加键位输入框"""
         self.res = self.lineEdit_input.text()
-        if self.res not in self.dd.vk:
+        if self.res == self.config["Set_key"]["coiled_key"] or self.res == self.config["Set_key"]["circulate_key"]:
+            self.lineEdit_input.clear()
+            self.lineEdit_input.setPlaceholderText('快捷键重复')
+
+        elif self.res not in self.dd.vk:
             self.lineEdit_input.clear()
             self.lineEdit_input.setPlaceholderText('输入单个小写字母')
 
@@ -282,28 +303,31 @@ class CatWu(QWidget, Ui_Form):
 
     def on_press(self, key):
         try:
-            if key.char == self.config['Set_key']['coiled_key'] and self.config['Set_key']['coiled_mode'] and self.is_switch and self.is_coiled_mode:
-                self.is_coiled_mode = False
+            if key.char == self.config['Set_key']['coiled_key'] and self.config['Set_key'][
+                'coiled_mode'] and self.is_switch and self.is_coiled_mode:
                 self.key_star()
-                print('开始连发')
+                self.is_coiled_mode = False
+                print('开始连发1')
             # print(f'按键 {key} 被按下')
+
         except AttributeError:
-
-            if key.name == self.config['Set_key']['coiled_key'] and self.config['Set_key']['coiled_mode'] and self.is_switch:
-                self.is_coiled_mode = False
+            if key.name == self.config['Set_key']['coiled_key'] and self.config['Set_key'][
+                'coiled_mode'] and self.is_switch and self.is_coiled_mode:
                 self.key_star()
-                print('开始连发')
-
+                self.is_coiled_mode = False
+                print('开始连发2')
 
     def on_release(self, key):
-        # print(f'按键 {key} 被松开')
+        print(key, '松开')
         try:
-            if key.char == self.config['Set_key']['coiled_key'] and self.config['Set_key']['coiled_mode'] and self.is_switch:
-                self.is_coiled_mode = True
+            if key.char == self.config['Set_key']['coiled_key'] and self.config['Set_key'][
+                'coiled_mode'] and self.is_switch:
                 self.key_stop()
+                self.is_coiled_mode = True
                 print('停止连发')
 
-            elif key.char == self.config['Set_key']['circulate_key'] and self.config['Set_key']['circulate_mode'] and self.is_switch:
+            elif key.char == self.config['Set_key']['circulate_key'] and self.config['Set_key'][
+                'circulate_mode'] and self.is_switch:
                 if self.dd.is_circulate:
                     self.dd.is_circulate = False
                 else:
@@ -321,7 +345,6 @@ class CatWu(QWidget, Ui_Form):
 
             if key.name == self.config['Set_key']['coiled_key'] and self.config['Set_key'][
                 'coiled_mode'] and self.is_switch:
-                self.is_coiled_mode = True
                 self.key_stop()
                 print('停止连发')
 
@@ -339,12 +362,13 @@ class CatWu(QWidget, Ui_Form):
             if key.name == self.config['Set_key']['coiled_key'] and self.config['Set_key'][
                 'coiled_mode'] and self.is_switch:
                 self.key_stop()
+                self.is_coiled_mode = True
                 print('停止连发')
 
     def listener_thread_start(self):
         """钩子线程"""
         self.listener_thread = threading.Thread(target=self.is_listener)
-        # self.press_thread.daemon = True
+        self.listener_thread.daemon = True
         self.listener_thread.start()
 
     # -----------------------------------------------------------------

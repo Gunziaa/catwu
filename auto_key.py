@@ -65,7 +65,6 @@ class DDkey:
             self.dd_key()
             e = random.randint(int(self.delay_mini), int(self.delay_max)) / 1000
             time.sleep(e)
-            print(e)
 
     def dd_click_start(self):
         """开始无脑循环"""

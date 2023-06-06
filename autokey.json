@@ -1,11 +1,10 @@
 {
 	"PressKey": [
-		"a",
-		"b",
-		"c",
+		"q",
 		"`"
 	],
 	"Selected": [
+		"q",
 		"`"
 	],
 	"Set_key": {
